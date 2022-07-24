@@ -8,9 +8,9 @@ previewImg = document.querySelector(".preview-img img"),
 chooseImgBtn = document.querySelector(".choose-img");
 
 let brightness = 100, saturation = 100, inversion = 0, grayscale = 0;
-
-const applyFilter = () => {
-    previewImg.style.transform = `rotate(${rotate}deg) scale(${flipHorizontal}, ${flipVertical})`;
+let rotate = 0;
+const applyFilters = () => {
+    previewImg.style.transform = `rotate(${rotate}deg) `;
     previewImg.style.filter = `brightness(${brightness}%) saturate(${saturation}%) invert(${inversion}%) grayscale(${grayscale}%)`;
 }
 
@@ -49,7 +49,7 @@ filterOptions.forEach(option =>{
     });
 });
 
-const updateFilter = () =>{
+const updateFilter = () => {
     filterValue.innerText = `${filterSlider.value}%`;
     const selectedFilter = document.querySelector(".filter .active");
 
@@ -65,6 +65,17 @@ const updateFilter = () =>{
     applyFilters();
    
 }
+
+rotateOptions.forEach(option => {
+    option.addEventListener("click", () =>{
+        if(option.id === "left") {
+            rotate -= 90;
+        } else if(option.id === "right") {
+            rotate += 90;
+        }
+        applyFilters();
+    });
+});
 
 
 fileInput.addEventListener("change", loadImage);
